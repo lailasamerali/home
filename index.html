@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button
+      id="show-favorites"
+      style="bottom: 80px"
+      title="Show Favorites Only"
+    >
+      <img src="./imgs/like.png" width="35px" alt="Favorite" />
+    </button>
+    <button
+      id="show-all"
+      style="bottom: 20px"
+      title="Show All Images And Videos"
+    >
+      <img src="./imgs/menu.png" width="35px" alt="show all" />
+    </button>
+    <button
+      id="show-videos"
+      style="bottom: 140px"
+      title="Show Models That Has Videos"
+    >
+      <img src="./imgs/clapperboard.png" width="35px" alt="clapperboard" />
+    </button>
+    <button id="scrollToTopBtn" style="bottom: 200px" title="Go to top">
+      <img src="./imgs/arrow.png" width="35px" alt="to top icon" />
+    </button>
+    <header>
+      <h1>Model Gallery</h1>
+      <div class="contianer">
+        <input type="text" id="search" placeholder="Search models..." />
+        <label for="items-per-page">Items per page:</label>
+
+        <select name="items-per-page" id="items-per-page">
+          <option value="24">24</option>
+          <option value="48">48</option>
+          <option value="96">96</option>
+        </select>
+      </div>
+    </header>
+
+    <div id="models-container" class="models-container"></div>
+    <div id="pagination" class="pagination"></div>
+
+    <script src="https://www.pythonanywhere.com/user/graphicsbundles/files/home/graphicsbundles/static/models1.js"></script>
+    <script src="https://www.pythonanywhere.com/user/graphicsbundles/files/home/graphicsbundles/static/models2.js"></script>
+    <script src="https://www.pythonanywhere.com/user/graphicsbundles/files/home/graphicsbundles/static/models3.js"></script>
+    <!-- <script src="leaks.js"></script> -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
