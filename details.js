@@ -58,7 +58,7 @@ function renderModelImages(showFavoritesOnly = false) {
       aboutInfo.push(
         `<div><strong>Videos Count:</strong> ${model.videos_count}</div>`
       );
-    if (model.tags.length > 1)
+    if (model.tags)
       aboutInfo.push(`<div><strong>Tags:</strong> ${model.tags}</div>`);
 
     modelAbout.innerHTML = aboutInfo.length > 0 ? aboutInfo.join("") : "";
