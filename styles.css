@@ -421,3 +421,39 @@ a.profile{
         object-fit: contain;
     }
 }
+
+
+.video-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.video-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 10px;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}

@@ -126,6 +126,17 @@ function renderModels(
       const randomImage = getRandomItem(model.data);
       imgElement.src = randomImage;
     });
+
+    imgElement.addEventListener("click", (event) => {
+      event.preventDefault();
+      const randomImage = getRandomItem(model.data);
+      imgElement.src = randomImage;
+    });
+
+    setTimeout(() => {
+      const randomImage = getRandomItem(model.data);
+      imgElement.src = randomImage;
+    }, "1000");
   });
 
   // Attach event listeners to heart icons

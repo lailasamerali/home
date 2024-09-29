@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="video-container" id="videoContainer">
+      <!-- Videos will be inserted here dynamically -->
+    </div>
+    <div class="pagination" id="pagination">
+      <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+      <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+    ;
+
+    <script src="videos.js"></script>
+
+    <script>
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          // Generate a random index between 0 and i
+          const j = Math.floor(Math.random() * (i + 1));
+
+          // Swap elements at indices i and j
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+
+        return array;
+      }
+
+      const videosPerPage = 12; // Number of videos per page
+      let currentPage = 1;
+      const videoContainer = document.getElementById("videoContainer");
+      const pagination = document.getElementById("pagination");
+
+      // Function to render videos
+      function renderVideos() {
+        videoContainer.innerHTML = ""; // Clear previous videos
+        const start = (currentPage - 1) * videosPerPage;
+        const end = start + videosPerPage;
+        const videosToShow = shuffle(videos).slice(start, end);
+
+        videosToShow.forEach((video) => {
+          const videoItem = document.createElement("div");
+          videoItem.classList.add("video-item");
+          videoItem.innerHTML = `
+                  <video controls>
+                      <source src="${video.media}" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              `;
+          videoContainer.appendChild(videoItem);
+        });
+
+        renderPagination(); // Call pagination after rendering videos
+      }
+
+      // Function to render pagination controls
+      function renderPagination() {
+        pagination.innerHTML = "";
+
+        const totalPages = Math.ceil(videos.length / videosPerPage);
+
+        // Hide pagination if total items are less than modelsPerPage
+        if (totalPages <= 1) {
+          return;
+        }
+
+        const range = 1; // Number of pages to show before and after the current page
+        const startPages = totalPages > 3 ? 2 : 1; // show the first few pages based on totalPages
+        const endPages = totalPages > 3 ? 2 : 1; // show the last few pages based on totalPages
+
+        function createButton(page) {
+          const button = document.createElement("button");
+          button.innerText = page;
+          if (page === currentPage) {
+            button.style.backgroundColor = "#333";
+            button.style.color = "white";
+          }
+          button.addEventListener("click", () => {
+            currentPage = page;
+            renderVideos();
+          });
+          pagination.appendChild(button);
+        }
+
+        // Create "Prev" button
+        const prevButton = document.createElement("button");
+        prevButton.innerText = "Prev";
+        if (currentPage > 1) {
+          prevButton.addEventListener("click", () => {
+            currentPage--;
+            renderVideos();
+          });
+        } else {
+          prevButton.disabled = true;
+        }
+        pagination.appendChild(prevButton);
+
+        // Show the first few pages
+        for (let i = 1; i <= Math.min(startPages, totalPages); i++) {
+          createButton(i);
+        }
+
+        // Show "..." before the current page range if necessary
+        if (currentPage > startPages + range + 1) {
+          const ellipsis = document.createElement("span");
+          ellipsis.innerText = "...";
+          pagination.appendChild(ellipsis);
+        }
+
+        // Show the range around the current page
+        const start = Math.max(startPages + 1, currentPage - range);
+        const end = Math.min(totalPages - endPages, currentPage + range);
+
+        for (let i = start; i <= end; i++) {
+          if (i > startPages && i <= totalPages - endPages) {
+            createButton(i);
+          }
+        }
+
+        // Show "..." after the current page range if necessary
+        if (currentPage < totalPages - endPages - range) {
+          const ellipsis = document.createElement("span");
+          ellipsis.innerText = "...";
+          pagination.appendChild(ellipsis);
+        }
+
+        // Show the last few pages
+        for (
+          let i = Math.max(totalPages - endPages + 1, end + 1);
+          i <= totalPages;
+          i++
+        ) {
+          createButton(i);
+        }
+
+        // Create "Next" button
+        const nextButton = document.createElement("button");
+        nextButton.innerText = "Next";
+        if (currentPage < totalPages) {
+          nextButton.addEventListener("click", () => {
+            currentPage++;
+            renderVideos();
+          });
+        } else {
+          nextButton.disabled = true;
+        }
+        pagination.appendChild(nextButton);
+
+        // Scroll to top when navigating pages
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // Initial render
+      renderVideos();
+    </script>
+  </body>
+</html>
